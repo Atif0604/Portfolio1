@@ -40,17 +40,19 @@
           </div>
         </div>
       </nav>
+
       <header class="page-header gradient">
       <div class="container pt-3">
         <div class="row align align-items-center">
           <div class="col-md-6">
+            <br>
             <h2>Hey Guys, Welcome to Atif's Portfolio Website</h2>
-          <br>
+         
           <h5>I'm currently an undergrad B.Tech (CSE) student at Kalinga Institute of Industrial Technology.<br> I am a keen learner and take interest in coding and learning new skills.</h5>
-
+          <br>
           </div>
           <div class="col-md-6">
-            <img class="header-img " src="img/Atif2.jpeg" alt="My Header Img"></div>
+            <img class="header-img mx-auto d-block" src="img/Atif2.jpeg" alt="My Header Img"></div>
         </div>
       </div>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -60,13 +62,18 @@
       <div class="container text-center">
         <div class="col-md-12">
           <h2 id="About Me"class="skills">About Me</h2>
-          <img class="about-img" src="img/IMG-20190930-WA00470001.jpg" alt="about-img">
+          <div class="row">
+            <div class="col-md-6 align-items-center">
+            <img class="about-img" src="img/IMG-20190930-WA00470001.jpg" alt="about-img">
+            </div>
+            <div class="col-md-6">
             <p class="para"align="justify"> 
               I'm Atif Coming From The Lands Of Ganges Patna.I've Done My Schooling From Loyola High School And Currently
                I'm In 3rd Sem Of B.Tech In Computer Science Department.
                I'm a Front Web Developer And Still in A Process Of Becoming A Full Stack Web Developer. 
                I Also Know Some Langauges Like C,C++,Html,CSS And Bootstrap.
           </p>
+            </div>
         </div>
         </div>
       </div>
@@ -76,8 +83,7 @@
           <h2 id="Skills"class="skills">Skills</h2>
           <div class="row g-5">
             <div class="col-md-6">
-              
-              <div class="card align-content-center" style="width: 18rem;">
+               <div class="card align-content-center" style="width: 18rem;">
                 <img src="img/c.png" class="card-img-top mx-auto d-block" alt="c-img">
                 <div class="card-body">
                   <p class="card-text">C language is a system programming language because it can be used to do low-level programming.</p>
@@ -144,20 +150,22 @@
          <div class="container justify-content-between">
            <div class="row">
              <div class="col-md-5">
+             <form action="index.php" method="POST">
                <h2 id="Contact">Contact Me</h2>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="Alexa">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Alexa" name="name">
                 <label for="floatingInput">Name</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
                 <label for="floatingInput">Email address</label>
               </div>
               <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" name="message"></textarea>
                 <label for="floatingTextarea2">Message</label>
               </div>
-              <button type="button" class="btn btn-outline-info">Submit</button>
+              <button type="submit" class="btn btn-outline-info" name="submit" value="submit">Submit</button>
+             </form>
              </div>
              <div class="col-md-5">
                <img src="img/handshake.svg" alt="contact-img">
@@ -174,3 +182,27 @@
       </footer>
 </body>
 </html>
+<?php
+$conn=mysqli_connect("localhost","root","","web")or die("unable to connect");
+$message="";
+if(isset($_POST['submit']))
+{
+    $name=$_POST['name'];
+    $email=$_POST['email'];
+    $message=$_POST['message'];
+
+  if($conn)
+  {
+    //echo "Connection sucessful";
+  }
+  $sql="INSERT INTO portfolio(Name,Email,Message) VALUES('$name','$email','$message')";
+  if(mysqli_query($conn,$sql))
+  {
+    $message= "Registration successful our team will contact you in 24 hours";
+  }
+  else
+  {
+     $message= "fail";
+  }
+}
+?>
